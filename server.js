@@ -18,7 +18,6 @@ app.post("/store-file", async (req, res) => {
       });
     }
 
-    // Writing file to storage
     fs.writeFile(file, data, (err) => {
       if (err) {
         console.error("Error saving file:", err);
