@@ -9,7 +9,3 @@ steps:
 
 images:
   - "gcr.io/activity-2-428115/container1"
-
-options:
-  logging:
-    logsBucket: "logging-bucket"
