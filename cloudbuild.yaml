@@ -1,14 +1,14 @@
 steps:
   # Step 1: Build the Docker image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/activity-2-428115/container1", "."]
+    args: ["build", "-t", "gcr.io/kubernetes-428622/container1", "."]
 
   # Step 2: Push the Docker image to Artifact Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/activity-2-428115/container1"]
+    args: ["push", "gcr.io/kubernetes-428622/container1"]
 
 images:
-  - "gcr.io/activity-2-428115/container1"
+  - "gcr.io/kubernetes-428622/container1"
 
 options:
   logging: CLOUD_LOGGING_ONLY
