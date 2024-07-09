@@ -47,7 +47,7 @@ app.post("/store-file", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello World from Container-1 Kubernetes");
+  res.send("Hello World from Container-1 Kubernetes Assignment");
 });
 
 app.listen(port, () => {
