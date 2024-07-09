@@ -8,16 +8,18 @@ steps:
     args: ["push", "gcr.io/kubernetes-428622/container1"]
 
   # Step to apply the deployment for Container 1
-  - name: "gcr.io/cloud-builders/kubectl"
-    entrypoint: "bash"
+  - name: "gcr.io/cloud-builders/gcloud"
     args:
       [
-        "-c",
-        "gcloud container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER --zone $CLOUDSDK_COMPUTE_ZONE && kubectl apply -f deployment-container1.yaml",
+        "container",
+        "clusters",
+        "get-credentials",
+        "assignment-cluster",
+        "--zone",
+        "us-central1-a",
       ]
-    env:
-      - "CLOUDSDK_COMPUTE_ZONE=us-central1-a" # Set to your cluster's zone
-      - "CLOUDSDK_CONTAINER_CLUSTER=assignment-cluster" # Set to your cluster's name
+  - name: "gcr.io/cloud-builders/kubectl"
+    args: ["apply", "-f", "deployment-container1.yaml"]
 
 images:
   - "gcr.io/kubernetes-428622/container1"
