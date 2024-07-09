@@ -46,6 +46,10 @@ app.post("/store-file", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello from Container-1");
+});
+
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
 });
