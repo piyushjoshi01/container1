@@ -17,8 +17,8 @@ app.post("/store-file", async (req, res) => {
         error: "Invalid JSON input.",
       });
     }
-
-    fs.writeFile(file, data, (err) => {
+    const path = `../piyush_PV_dir/${file}`;
+    fs.writeFile(path, data, (err) => {
       if (err) {
         console.error("Error saving file:", err);
         return res.status(500).json({
@@ -27,7 +27,7 @@ app.post("/store-file", async (req, res) => {
       }
 
       axios
-        .post("http://localhost:6000/calculate", {
+        .post("http://service-container2:80/calculate", {
           file,
           product: "wheat",
         })
@@ -47,7 +47,7 @@ app.post("/store-file", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello from Container-1");
+  res.send("Hello World from Container-1");
 });
 
 app.listen(port, () => {
