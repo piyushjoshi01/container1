@@ -25,7 +25,7 @@ spec:
         - name: container1
           image: gcr.io/kubernetes-428622/container1:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
           volumeMounts:
             - name: assignment-pv-storage
               mountPath: /usr/share/data
@@ -52,4 +52,4 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 3000
