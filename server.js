@@ -12,19 +12,18 @@ app.post("/store-file", async (req, res) => {
 
   try {
     if (!file) {
-      return res.status(400).json({
-        file: file,
-        error: "Invalid JSON input.",
-      });
+      return res.status(400).json({ file: file, error: "Invalid JSON input." });
     }
     const path = `../piyush_PV_dir/${file}`;
     fs.writeFile(path, data, (err) => {
       if (err) {
         console.error("Error saving file:", err);
-        return res.status(500).json({
-          file,
-          error: "Error while storing the file to the storage.",
-        });
+        return res
+          .status(500)
+          .json({
+            file,
+            error: "Error while storing the file to the storage.",
+          });
       } else {
         return res.status(201).json({ file, message: "Success." });
       }
@@ -37,18 +36,21 @@ app.post("/store-file", async (req, res) => {
 
 app.post("/calculate", (req, res) => {
   const { file, product } = req.body;
+
   axios
-    .post("http://service-container2:80/calculate", {
-      file,
-      product,
-    })
+    .post("http://service-container2:80/calculate", { file, product })
     .then((response) => {
       console.log("Axios request successful:", response.data);
       res.status(response.status).json(response.data);
     })
     .catch((error) => {
-      console.error("Axios error:", error);
-      res.status(500).json({ error: "Error in external API request." });
+      if (error.response) {
+        console.error("Axios response error:", error.response.data);
+        res.status(error.response.status).json(error.response.data);
+      } else {
+        console.error("Axios request error:", error.message);
+        res.status(500).json({ error: "Error in external API request." });
+      }
     });
 });
 
