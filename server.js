@@ -18,12 +18,10 @@ app.post("/store-file", async (req, res) => {
     fs.writeFile(path, data, (err) => {
       if (err) {
         console.error("Error saving file:", err);
-        return res
-          .status(500)
-          .json({
-            file,
-            error: "Error while storing the file to the storage.",
-          });
+        return res.status(500).json({
+          file,
+          error: "Error while storing the file to the storage.",
+        });
       } else {
         return res.status(201).json({ file, message: "Success." });
       }
