@@ -34,7 +34,9 @@ app.post("/store-file", async (req, res) => {
 
 app.post("/calculate", (req, res) => {
   const { file, product } = req.body;
-
+  if (!file) {
+    return res.status(400).json({ file: file, error: "Invalid JSON input." });
+  }
   axios
     .post("http://service-container2:80/calculate", { file, product })
     .then((response) => {
