@@ -16,12 +16,14 @@ steps:
         gcloud container clusters get-credentials assignment-cluster --zone us-central1-a &&
         kubectl apply -f deployment-container1.yaml
 
-  - name: "gcr.io/cloud-builders/kubectl"
+  # Step 4: Update the deployment with the new image
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
     args:
-      - "set"
-      - "image"
-      - "deployment/assignment-deployment-container1"
-      - "container2=gcr.io/kubernetes-428622/container1:$SHORT_SHA"
+      - "-c"
+      - |
+        gcloud container clusters get-credentials assignment-cluster --zone us-central1-a &&
+        kubectl set image deployment/assignment-deployment-container1 container1=gcr.io/kubernetes-428622/container1:$SHORT_SHA
 
 images:
   - "gcr.io/kubernetes-428622/container1"
